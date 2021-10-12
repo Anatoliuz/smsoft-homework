@@ -50,21 +50,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
             </plugin>
-            <plugin>
-                <groupId>ru.smsoft</groupId>
-                <artifactId>data-info-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <pathToProps>/system-info-rest/src/main/resources/application.properties</pathToProps>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
 
     </build>
