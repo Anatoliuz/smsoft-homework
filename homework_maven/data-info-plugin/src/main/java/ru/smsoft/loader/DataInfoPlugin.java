@@ -5,10 +5,12 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import ru.smsoft.loader.loader.service.Loader;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mojo(name = "info", defaultPhase = LifecyclePhase.COMPILE, threadSafe = true)
 public class DataInfoPlugin extends AbstractMojo {
@@ -21,13 +23,14 @@ public class DataInfoPlugin extends AbstractMojo {
        Date start = Date.from(Instant.now());
 
         getLog().info("CSV to DB loading...");
-
+        Loader loader = new Loader();
         Thread thread = new Thread(
                 () -> {
                     try {
-                        int loadedRowsNumber = Loader.load(CSV_FILE_PATH);
-                        getLog().info("Loaded records = " + loadedRowsNumber);
-
+                        while (!Thread.currentThread().isInterrupted()) {
+                            getLog().info("Loaded records = " + loader.getLoadedCount());
+                            Thread.sleep(1000);
+                        }
                     } catch (Exception e) {
                         getLog().error("Some Error", e);
                     }
@@ -36,11 +39,11 @@ public class DataInfoPlugin extends AbstractMojo {
 
         thread.start();
         try {
-            thread.join(10000);
-        } catch (InterruptedException e) {
-           getLog().error("Kek", e);
+            int loadedRowsNumber = loader.load(CSV_FILE_PATH);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
-
+        thread.interrupt();
         Date finish = Date.from(Instant.now());
 
         long diff = ChronoUnit.MILLIS.between(start.toInstant(), finish.toInstant());

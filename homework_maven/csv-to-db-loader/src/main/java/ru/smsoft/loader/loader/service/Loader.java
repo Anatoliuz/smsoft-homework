@@ -11,14 +11,14 @@ import java.util.List;
 
 public class Loader {
 
-    public static int load(String csvFilePath) throws IOException {
+    int loadedCount = 0;
+    public int load(String csvFilePath) throws IOException {
         List<Record> records = Parser.convertCsvToRecords(csvFilePath);
-        int loadedCount = 0;
+        loadedCount = 0;
 
         if (records == null) {
             return loadedCount;
         }
-
         Transaction transaction = null;
         Session session = null;
         try {
@@ -30,6 +30,8 @@ public class Loader {
             for (Record entity : records) {
                 session.save(entity);
                 ++loadedCount;
+//                if (loadedCount % 1000 == 0)
+//                    System.out.println("loaded count: " + loadedCount);
             }
             transaction.commit();
         } catch (Exception e) {
@@ -41,6 +43,10 @@ public class Loader {
             if (session != null) session.close();
         }
 
+        return loadedCount;
+    }
+
+    public int getLoadedCount(){
         return loadedCount;
     }
 
