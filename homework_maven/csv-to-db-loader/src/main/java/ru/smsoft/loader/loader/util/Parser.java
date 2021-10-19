@@ -1,6 +1,6 @@
-package ru.smsoft.loader.util;
+package ru.smsoft.loader.loader.util;
 
-import ru.smsoft.loader.model.Record;
+import ru.smsoft.loader.loader.model.Record;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ public class Parser {
 
     public static List<Record> convertCsvToRecords(String pathToCsv) throws IOException {
         try (BufferedReader file = new BufferedReader(new FileReader(pathToCsv))) {
-            var records = new ArrayList<Record>();
+            List<Record> records = new ArrayList<Record>();
             file.readLine();
             String line;
             while ((line = file.readLine()) != null) {

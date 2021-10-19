@@ -10,7 +10,9 @@
         <property name="connection.username">test</property>
         <property name="connection.password">test</property>
         <property name="connection.pool_size">3</property>
+        <property name="hbm2ddl.auto">create-drop</property>
+
         <property name="hibernate.current_session_context_class">thread</property>
-        <mapping  class="ru.smsoft.loader.model.Record"/>
+        <mapping  class="ru.smsoft.loader.loader.model.Record"/>
     </session-factory>
 </hibernate-configuration>

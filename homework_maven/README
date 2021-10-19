@@ -1,0 +1,19 @@
+# homework_maven
+
+Домашнее задание по maven.<br>
+
+## Описание проекта
+
+Java 8<br>
+csv-to-db-loader- приложение, которое сохраняет данные в бд из csv файла.
+<br><br>
+data-info-plugin - maven плагин, запускается на фазе compile, использует csv-to-db-loader, выводит информацию о закгрузке записей из csv в бд а этапе сборки проекта;
+<br>
+
+<br><br>
+
+##Сборка проекта
+cd docker
+docker-compose up -d
+Выполнить mvn clean install для родительского pom файла.
+

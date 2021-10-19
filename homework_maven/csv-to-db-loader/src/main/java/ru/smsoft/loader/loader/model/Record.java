@@ -1,4 +1,4 @@
-package ru.smsoft.loader.model;
+package ru.smsoft.loader.loader.model;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -22,8 +22,8 @@ public class Record {
     private String code;
     private String ltpa;
     private String sudirresponse;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ymdh;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date ymdh;
 
 
     public Record() {
@@ -55,14 +55,14 @@ public class Record {
         this.code = splittedData[8];
         this.ltpa = splittedData[9];
         this.sudirresponse = splittedData[10];
-        this.ymdh = converDateString(splittedData[11]);
+       // this.ymdh = converDateString(splittedData[11]);
     }
 
     private Date converDateString(String date) {
         final String DATE_FORMAT = "yyyy-MM-dd-hh";
 
         try {
-            var format = new SimpleDateFormat(DATE_FORMAT);
+            SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
             return format.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();

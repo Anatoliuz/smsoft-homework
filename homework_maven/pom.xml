@@ -2,37 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>csv-to-db-loader</module>
-        <module>data-info-plugin</module>
-    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
     <groupId>ru.smsoft</groupId>
     <artifactId>homework_maven</artifactId>
     <version>1.0</version>
+
     <name>homework_maven</name>
     <description>Demo of maven custom plugin</description>
 
+    <packaging>pom</packaging>
+    <modules>
+        <module>csv-to-db-loader</module>
+        <module>data-info-plugin</module>
+    </modules>
+
     <properties>
         <java.version>16</java.version>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <maven.plugin.skipErrorNoDescriptorsFound>true</maven.plugin.skipErrorNoDescriptorsFound>
-
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -43,16 +42,31 @@
 
     </dependencies>
 
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>ru.smsoft</groupId>
+                <artifactId>data-info-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <pathToProps>/system-info-rest/src/main/resources/application.properties</pathToProps>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
             </plugin>
-
         </plugins>
-
     </build>
 
 </project>
